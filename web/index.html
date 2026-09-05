@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>个人工作台</title>
+    <link rel="stylesheet" href="/styles.css?rev=20260905-30">
+</head>
+<body>
+  <div class="app-shell">
+    <aside id="sidebar" class="sidebar" aria-label="主导航">
+      <div class="sidebar-head">
+        <a class="brand" href="#" data-page="dashboard" aria-label="回到首页"><span class="brand-wordmark">个人工作台</span><span class="brand-subtitle">PERSONAL DESK</span></a>
+        <button id="sidebar-toggle" class="sidebar-toggle" type="button" title="收起导航" aria-controls="sidebar" aria-expanded="true"><span aria-hidden="true">‹</span><span>收起导航</span></button>
+      </div>
+      <nav id="nav" aria-label="主导航">
+        <button data-page="dashboard" class="active"><span>首页</span><small>01</small></button>
+        <button data-page="courses"><span>课表</span><small>02</small></button>
+        <button data-page="applications"><span>岗位投递</span><small>03</small></button>
+        <button data-page="resumes"><span>简历</span><small>04</small></button>
+        <button data-page="plans"><span>计划</span><small>05</small></button>
+        <button data-page="settings"><span>设置</span><small>06</small></button>
+      </nav>
+      <aside class="sidebar-window" aria-label="工作台窗口">
+        <div class="sidebar-window-bar"><span>DESK / WINDOW</span><button type="button" data-sidebar-window-toggle aria-expanded="true" aria-controls="sidebar-window-body">−</button></div>
+        <div id="sidebar-window-body" class="sidebar-window-body">
+          <div class="sidebar-clock"><strong id="sidebar-time">--:--</strong><span id="sidebar-date">TODAY / 今日</span></div>
+          <div class="sidebar-window-rule"></div>
+          <p class="sidebar-window-kicker">当前视角</p>
+          <strong id="sidebar-current-page">今天，从重点开始</strong>
+          <div class="sidebar-window-actions"><button type="button" class="window-action" data-page="plans">打开计划 <span>↗</span></button><button type="button" class="window-action" data-page="applications">记录岗位 <span>↗</span></button></div>
+        </div>
+      </aside>
+      <div class="local-status"><span>LOCAL / OFFLINE</span><small>只在本机运行</small></div>
+    </aside>
+    <button id="sidebar-open" class="sidebar-open" type="button" title="展开导航" aria-controls="sidebar" aria-expanded="false" hidden><span aria-hidden="true">›</span><span>展开导航</span></button>
+    <main>
+      <header class="page-head">
+        <div class="page-head-copy"><p id="eyebrow">TODAY / 今日</p><h1 id="page-title">今天，从重点开始</h1></div>
+        <div class="page-head-side">
+          <div class="head-annotation" aria-hidden="true"><span id="page-stamp">DESK / 01</span><i></i><small id="page-caption">A DAILY INDEX</small></div>
+          <div class="date-block"><strong id="date-day"></strong><span id="date-rest"></span></div>
+        </div>
+      </header>
+      <section id="content" class="content" aria-live="polite"></section>
+    </main>
+  </div>
+  <div id="modal" class="modal" hidden><div class="modal-backdrop" data-close></div><section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title"><button class="modal-close" data-close aria-label="关闭">×</button><div id="modal-content"></div></section></div>
+  <div id="confirm-modal" class="confirm-modal" hidden>
+    <div class="confirm-backdrop" data-confirm-cancel></div>
+    <section class="confirm-card" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-message">
+      <button type="button" class="confirm-close" data-confirm-cancel aria-label="取消确认">×</button>
+      <div class="confirm-symbol" aria-hidden="true"><span>?</span></div>
+      <p class="confirm-kicker" id="confirm-kicker">DESK CHECK / 请确认</p>
+      <h2 id="confirm-title">确认这项操作</h2>
+      <p id="confirm-message"></p>
+      <div class="confirm-actions"><button type="button" class="btn" data-confirm-cancel>先不做</button><button type="button" class="btn primary confirm-ok" data-confirm-ok>确认</button></div>
+    </section>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+    <script type="module" src="/app.js?rev=20260905-30"></script>
+</body>
+</html>

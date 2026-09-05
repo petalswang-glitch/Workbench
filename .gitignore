@@ -1,0 +1,42 @@
+# Node.js and generated output
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+coverage/
+
+# Local runtime configuration and application data
+/config.json
+/data/
+/.test-data/
+/.test-data-*/
+/.tmp-stage*-data/
+*.log
+*.tmp
+*.bak
+*.pwb
+*.sqlite
+*.sqlite-*
+**/resumes/
+**/safety-backups/
+**/staging/
+
+# Personal source documents
+/我的课表.*
+
+# Locally generated duplicate icon variants; keep the source icon and final ICO
+/个人工作台.ico
+/个人工作台-透明抠图.ico
+/个人工作台图标.png
+
+# Local planning and work-session notes
+/task_plan.md
+/progress.md
+/findings.md
+
+# Operating system and editor files
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+.idea/
