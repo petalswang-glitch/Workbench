@@ -142,9 +142,25 @@ try {
 
         $nodeArchiveName = 'node-{0}-{1}.zip' -f $release.version, $nodePlatform
         $nodeArchiveUrl = "https://nodejs.org/dist/$($release.version)/$nodeArchiveName"
+        $nodeChecksumsUrl = "https://nodejs.org/dist/$($release.version)/SHASUMS256.txt"
         $nodeArchivePath = Join-Path $tempRoot $nodeArchiveName
+        $nodeChecksumsPath = Join-Path $tempRoot 'SHASUMS256.txt'
         $nodeExtractRoot = Join-Path $tempRoot 'node'
         Invoke-WebRequest -UseBasicParsing -Uri $nodeArchiveUrl -OutFile $nodeArchivePath
+        Invoke-WebRequest -UseBasicParsing -Uri $nodeChecksumsUrl -OutFile $nodeChecksumsPath
+
+        $checksumLine = Get-Content -Encoding ASCII -LiteralPath $nodeChecksumsPath |
+            Where-Object { $_ -match ('\s' + [regex]::Escape($nodeArchiveName) + '$') } |
+            Select-Object -First 1
+        if (-not $checksumLine) {
+            throw "Could not find a SHA-256 checksum for $nodeArchiveName."
+        }
+        $expectedChecksum = ($checksumLine -split '\s+')[0].ToLowerInvariant()
+        $actualChecksum = (Get-FileHash -Algorithm SHA256 -LiteralPath $nodeArchivePath).Hash.ToLowerInvariant()
+        if ($actualChecksum -ne $expectedChecksum) {
+            throw "The downloaded Node.js archive failed SHA-256 verification."
+        }
+
         Expand-Archive -LiteralPath $nodeArchivePath -DestinationPath $nodeExtractRoot -Force
 
         $nodeSourceRoot = Get-ChildItem -LiteralPath $nodeExtractRoot -Directory -Force |

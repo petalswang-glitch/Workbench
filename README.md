@@ -32,7 +32,7 @@
 irm https://raw.githubusercontent.com/petalswang-glitch/Workbench/main/scripts/install-workbench.ps1 | iex
 ```
 
-安装脚本会从当前 `main` 分支下载源码到 `%LOCALAPPDATA%\PersonalWorkbench`，检查 Node.js 24 或更高版本；如果系统没有合适版本，会从 [Node.js 官方发行目录](https://nodejs.org/dist/index.json) 下载匹配当前 Windows 架构的便携运行时到 `.runtime`，不修改系统 PATH。之后脚本会创建 `Personal Workbench` 桌面快捷方式并直接启动工作台。重新执行可以更新程序文件；已有的 `config.json`、`data/` 和 `.runtime/` 不会被源码覆盖。
+安装脚本会从当前 `main` 分支下载源码到 `%LOCALAPPDATA%\PersonalWorkbench`，优先使用 Node.js 24 或更高版本；如果系统没有合适版本，会从 [Node.js 官方发行目录](https://nodejs.org/dist/index.json) 下载匹配当前 Windows 架构的 Node.js 24 便携运行时，并使用官方 SHA-256 清单校验后放入 `.runtime`，不修改系统 PATH。之后脚本会创建 `Personal Workbench` 桌面快捷方式并直接启动工作台。重新执行可以更新程序文件；已有的 `config.json`、`data/` 和 `.runtime/` 不会被源码覆盖。若官方运行时下载或校验失败，安装器会停止并显示错误，不会继续启动不完整安装。
 
 安装器支持 `-NoLaunch` 和 `-NoShortcut` 参数，便于在命令行中只安装不启动或只更新程序文件；普通用户无需传参数。
 
