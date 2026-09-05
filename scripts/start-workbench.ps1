@@ -12,16 +12,30 @@ if (-not (Test-Path -LiteralPath $configPath)) {
     [System.IO.File]::WriteAllText($configPath, $config, (New-Object System.Text.UTF8Encoding($false)))
 }
 
-$node = Get-Command node -ErrorAction SilentlyContinue
-if (-not $node) {
+$bundledNode = Join-Path $projectRoot '.runtime\node.exe'
+$nodePath = $null
+if (Test-Path -LiteralPath $bundledNode) {
+    try {
+        $bundledVersion = (& $bundledNode --version 2>$null).Trim()
+        if ($bundledVersion -match '^v(\d+)' -and [int]$Matches[1] -ge 24) {
+            $nodePath = $bundledNode
+        }
+    } catch {}
+}
+if (-not $nodePath) {
+    $systemNode = Get-Command node -ErrorAction SilentlyContinue
+    if ($systemNode) {
+        try {
+            $systemVersion = (& $systemNode.Source --version 2>$null).Trim()
+            if ($systemVersion -match '^v(\d+)' -and [int]$Matches[1] -ge 24) {
+                $nodePath = $systemNode.Source
+            }
+        } catch {}
+    }
+}
+if (-not $nodePath) {
     Add-Type -AssemblyName System.Windows.Forms
     [System.Windows.Forms.MessageBox]::Show('Node.js 24 or later was not found.', 'Personal Workbench') | Out-Null
-    exit 1
-}
-$nodeMajor = [int]((& $node.Source --version).TrimStart('v').Split('.')[0])
-if ($nodeMajor -lt 24) {
-    Add-Type -AssemblyName System.Windows.Forms
-    [System.Windows.Forms.MessageBox]::Show('Personal Workbench requires Node.js 24 or later.', 'Personal Workbench') | Out-Null
     exit 1
 }
 
@@ -48,7 +62,7 @@ if ($portOccupied) {
 }
 
 Set-Location -LiteralPath $projectRoot
-& $node.Source (Join-Path $projectRoot 'src\server.js')
+& $nodePath (Join-Path $projectRoot 'src\server.js')
 if ($LASTEXITCODE -ne 0) {
     Add-Type -AssemblyName System.Windows.Forms
     [System.Windows.Forms.MessageBox]::Show('Personal Workbench could not start. Check the launcher window for details.', 'Personal Workbench') | Out-Null

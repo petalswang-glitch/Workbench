@@ -8,6 +8,7 @@ coverage/
 # Local runtime configuration and application data
 /config.json
 /data/
+/.runtime/
 /.test-data/
 /.test-data-*/
 /.tmp-stage*-data/

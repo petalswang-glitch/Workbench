@@ -26,13 +26,15 @@
 
 ### 从 GitHub 一键安装
 
-这是本地安装方式，不会把个人数据上传到 GitHub。请先安装 [Node.js 24 或更高版本](https://nodejs.org/)，然后在 PowerShell 中执行：
+这是本地安装方式，不会把个人数据上传到 GitHub。Windows 用户在 PowerShell 中执行下面一条命令即可；不需要提前手动安装 Node.js：
 
 ```powershell
 irm https://raw.githubusercontent.com/petalswang-glitch/Workbench/main/scripts/install-workbench.ps1 | iex
 ```
 
-安装脚本会从当前 `main` 分支下载源码到 `%LOCALAPPDATA%\PersonalWorkbench`，创建 `Personal Workbench` 桌面快捷方式，并直接启动工作台。重新执行可以更新程序文件；已有的 `config.json` 和 `data/` 不会被安装包覆盖。
+安装脚本会从当前 `main` 分支下载源码到 `%LOCALAPPDATA%\PersonalWorkbench`，检查 Node.js 24 或更高版本；如果系统没有合适版本，会从 [Node.js 官方发行目录](https://nodejs.org/dist/index.json) 下载匹配当前 Windows 架构的便携运行时到 `.runtime`，不修改系统 PATH。之后脚本会创建 `Personal Workbench` 桌面快捷方式并直接启动工作台。重新执行可以更新程序文件；已有的 `config.json`、`data/` 和 `.runtime/` 不会被源码覆盖。
+
+安装器支持 `-NoLaunch` 和 `-NoShortcut` 参数，便于在命令行中只安装不启动或只更新程序文件；普通用户无需传参数。
 
 上面的命令会直接执行远程脚本。如果希望先审阅脚本，再运行安装器，可以执行：
 

@@ -14,6 +14,7 @@
 
 - `data/`：包含 SQLite 数据库、WAL/SHM 文件以及真实工作台记录。
 - `config.json`：包含本机绝对数据路径。
+- `.runtime/`：一键安装器下载的本地 Node.js 便携运行时，不属于源码发布内容。
 - `我的课表.xlsx`、`我的课表.doc`：个人课程安排文件。
 - 简历原文件、受管 `resumes/` 目录和 `.pwb` 备份：可能包含个人身份、求职和联系方式。
 - `safety-backups/`、`staging/`、SQLite 临时文件、日志、临时目录。
