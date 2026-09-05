@@ -24,10 +24,31 @@
 
 再次启动时，如果工作台已经运行，会直接打开已有页面，不会启动第二个写入进程。
 
+### 从 GitHub 一键安装
+
+这是本地安装方式，不会把个人数据上传到 GitHub。请先安装 [Node.js 24 或更高版本](https://nodejs.org/)，然后在 PowerShell 中执行：
+
+```powershell
+irm https://raw.githubusercontent.com/petalswang-glitch/Workbench/main/scripts/install-workbench.ps1 | iex
+```
+
+安装脚本会从当前 `main` 分支下载源码到 `%LOCALAPPDATA%\PersonalWorkbench`，创建 `Personal Workbench` 桌面快捷方式，并直接启动工作台。重新执行可以更新程序文件；已有的 `config.json` 和 `data/` 不会被安装包覆盖。
+
+上面的命令会直接执行远程脚本。如果希望先审阅脚本，再运行安装器，可以执行：
+
+```powershell
+$installer = Join-Path $env:TEMP 'install-workbench.ps1'
+Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/petalswang-glitch/Workbench/main/scripts/install-workbench.ps1' -OutFile $installer
+notepad $installer
+& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $installer
+```
+
+安装完成后，桌面快捷方式调用的是无终端窗口的 `启动工作台.vbs`。这条一键安装命令目前面向 Windows；其他系统需要单独增加安装入口。
+
 ## 从 GitHub 获取
 
 ```powershell
-git clone https://github.com/petalswang-glitch/-.git personal-workbench
+git clone https://github.com/petalswang-glitch/Workbench.git personal-workbench
 Set-Location personal-workbench
 node --test
 ```
@@ -66,7 +87,7 @@ node src/server.js
 src/                         本地 API、SQLite 存储、备份和导入逻辑
 web/                         浏览器界面、样式和交互
 test/                        Node.js 内置测试
-scripts/                     Windows 启动和课表导入脚本
+scripts/                     Windows 安装、启动和课表导入脚本
 docs/                        设计与公开仓库维护说明
 启动工作台.vbs               无终端窗口的 Windows 启动入口
 启动工作台.cmd               可查看启动过程的命令行入口

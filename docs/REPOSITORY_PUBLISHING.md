@@ -5,7 +5,7 @@
 ## 可以上传
 
 - `src/`、`web/`、`test/`：源代码、页面和合成测试。
-- `scripts/`、`启动工作台.cmd`、`启动工作台.vbs`：启动和导入工具。
+- `scripts/`、`启动工作台.cmd`、`启动工作台.vbs`：安装、启动和导入工具。
 - `docs/`、`CONTEXT.md`、`README.md`：设计、领域和使用说明。
 - `package.json`、`.gitignore`、`.gitattributes`、`config.example.json`：项目配置与发布元数据。
 - `icon.png`、`个人工作台-透明抠图.png` 和 `个人工作台-透明图标.ico`：源图与最终应用图标资源。公开前需要确认图像素材的版权或再分发许可；同目录下的其他 ICO/PNG 是本地生成的重复版本，不必上传。
